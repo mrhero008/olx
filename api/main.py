@@ -1,10 +1,42 @@
 from flask import Flask, render_template, request, redirect, url_for
-from models import Products, Users
 from ast import literal_eval as le
 import requests
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+from peewee import *
+
+db = SqliteDatabase("myshop.db")
+
+
+class BaseClass(Model):
+    class Meta:
+        database = db
+
+
+class Users(BaseClass):
+    email = CharField(max_length=50)
+    password = CharField(max_length=60)
+
+
+class Products(BaseClass):
+    name = CharField()
+    price = IntegerField()
+    description = TextField()
+    kategory = CharField()
+    city = CharField()
+    number = CharField()
+    email = CharField()
+    date = DateField()
+    time = TimeField()
+    image = CharField()
+
+
+db.connect()  # Ma'lumotlar bazasiga ulan!
+db.create_tables([Users, Products])  # Jadvallarni yarat!
+
+
+
 
 setcookie = "https://httpbin.org/cookies/set"
 getcookie = "https://httpbin.org/cookies"
