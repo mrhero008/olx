@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from models import *
+from models import Products, Users
 from ast import literal_eval as le
 import requests
 from datetime import datetime
